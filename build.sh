@@ -1,0 +1,1 @@
+javac -d mods --module-source-path uapi.common/src/main/java $(find uapi.common/src/main/java -name "*.java")
