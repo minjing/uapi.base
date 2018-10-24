@@ -2,3 +2,4 @@ rootProject.name = 'uapi.base'
 
 include 'uapi.common'
 include 'uapi.exception'
+include 'uapi.test'

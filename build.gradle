@@ -4,6 +4,9 @@ subprojects {
             jcenter()
         }
 
+        sourceCompatibility = 11
+        targetCompatibility = 11
+
         compileJava {
             inputs.property("moduleName", moduleName)
             doFirst {
