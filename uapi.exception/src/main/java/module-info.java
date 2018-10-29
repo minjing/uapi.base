@@ -3,6 +3,6 @@ module uapi.exception {
 
     exports uapi.exception;
 
-    provides uapi.IService
-            with uapi.exception.internal.MessageService;
+//    provides uapi.IService
+//            with uapi.exception.internal.MessageService;
 }

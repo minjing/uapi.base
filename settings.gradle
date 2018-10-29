@@ -2,4 +2,6 @@ rootProject.name = 'uapi.base'
 
 include 'uapi.common'
 include 'uapi.exception'
+include 'uapi.codegen'
+include 'uapi.service.apt', 'uapi.service'
 include 'uapi.test'

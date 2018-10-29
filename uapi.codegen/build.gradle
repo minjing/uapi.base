@@ -1,0 +1,12 @@
+plugins {
+    id 'java-library'
+}
+
+ext.moduleName = 'uapi.codegen'
+
+dependencies {
+    api project(':uapi.common')
+    api project(':uapi.exception')
+    
+    compile "org.freemarker:freemarker:${freemarker_version}"
+}

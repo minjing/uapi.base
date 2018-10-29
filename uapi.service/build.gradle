@@ -1,0 +1,11 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    compile project(':uapi.common')
+    compile project(':uapi.exception')
+    compile project(':uapi.codegen')
+}
+
+ext.moduleName = 'uapi.service'
