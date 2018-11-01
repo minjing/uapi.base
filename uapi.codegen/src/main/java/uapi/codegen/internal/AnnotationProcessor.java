@@ -9,6 +9,7 @@
 
 package uapi.codegen.internal;
 
+import com.google.auto.service.AutoService;
 import freemarker.template.Template;
 import uapi.Type;
 import uapi.codegen.*;
@@ -17,6 +18,7 @@ import uapi.rx.Looper;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Modifier;
@@ -28,6 +30,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.*;
 
+@AutoService(Processor.class)
 public class AnnotationProcessor extends AbstractProcessor {
 
     private static final String PATH_ANNOTATION_HANDLER =
@@ -45,10 +48,20 @@ public class AnnotationProcessor extends AbstractProcessor {
         this._logger = new LogSupport(processingEnv);
         this._handlers = new LinkedList<>();
         this._orderedAnnotations = new HashSet<>();
+        this._logger.info("Init annotation processor environment...");
         loadExternalHandler();
     }
 
     private void loadExternalHandler() {
+        ServiceLoader<IAnnotationsHandler> annoHandlers = ServiceLoader.load(IAnnotationsHandler.class);
+        try {
+            for (IAnnotationsHandler handler : annoHandlers) {
+                this._logger.info("Initialize external annotation handler - " + handler.getClass().getCanonicalName());
+//                initForHandler(handler);
+            }
+        } catch (Exception ex) {
+            this._logger.error(ex);
+        }
         InputStream is = null;
         Scanner scanner = null;
 

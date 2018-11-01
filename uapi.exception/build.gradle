@@ -2,8 +2,23 @@ plugins {
     id 'java-library'
 }
 
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 dependencies {
     api project(':uapi.common')
 }
 
 ext.moduleName = 'uapi.exception'
+
+//publishing {
+//    publications {
+//        localPublication(MavenPublication) {
+//            from components.java
+//            artifact sourcesJar
+//            groupId "${project_group}"
+//            artifactId "${project.name}"
+//            version "${project_version}"
+//        }
+//    }
+//}

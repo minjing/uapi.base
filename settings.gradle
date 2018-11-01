@@ -1,7 +1,9 @@
 rootProject.name = 'uapi.base'
 
+enableFeaturePreview('STABLE_PUBLISHING')
+
 include 'uapi.common'
 include 'uapi.exception'
 include 'uapi.codegen'
-include 'uapi.service.apt', 'uapi.service'
-include 'uapi.test'
+//include 'uapi.service.apt', 'uapi.service'
+//include 'uapi.test'

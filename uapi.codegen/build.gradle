@@ -2,11 +2,28 @@ plugins {
     id 'java-library'
 }
 
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 ext.moduleName = 'uapi.codegen'
 
 dependencies {
     api project(':uapi.common')
     api project(':uapi.exception')
-    
-    compile "org.freemarker:freemarker:${freemarker_version}"
+
+    api "org.freemarker:freemarker:${freemarker_version}"
+    annotationProcessor "com.google.auto.service:auto-service:${auto_service_version}"
+    compileOnly "com.google.auto.service:auto-service:${auto_service_version}"
 }
+
+//publishing {
+//    publications {
+//        localPublication(MavenPublication) {
+//            from components.java
+//            artifact sourcesJar
+//            groupId "${project_group}"
+//            artifactId "${project.name}"
+//            version "${project_version}"
+//        }
+//    }
+//}
