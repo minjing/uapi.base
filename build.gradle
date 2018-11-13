@@ -13,7 +13,7 @@ buildscript {
     }
 }
 
-apply plugin: 'jacoco'
+//apply plugin: 'jacoco'
 
 ext.project_version = getProjectVersion()
 ext.publish_repo    = getMavenRepo()
@@ -31,20 +31,21 @@ allprojects {
         mavenCentral()
         jcenter()
         maven { url "http://dl.bintray.com/typesafe/maven-releases" }
+        maven { url 'https://jitpack.io' }
     }
 }
 
 subprojects {
     apply plugin: 'java'
     apply plugin: 'groovy'
-    apply plugin: 'jacoco'
+//    apply plugin: 'jacoco'
     apply plugin: 'maven'
     apply plugin: 'maven-publish'
 
     group = "${project_group}"
     version = "${project_version}"
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = 11
+    targetCompatibility = 11
 
     configurations {
         codacy
@@ -52,7 +53,7 @@ subprojects {
 
     dependencies {
         testCompile (
-                "org.spockframework:spock-core:${spock_version}"
+                "org.spockframework.spock:spock-core:spock-1.2"
         )
         testRuntime (
                 "cglib:cglib-nodep:${cglib_version}",           // allows mocking of classes (in addition to interfaces)
@@ -74,11 +75,11 @@ subprojects {
         archives sourcesJar
     }
 
-    jacoco {
-        toolVersion = "${jacoco_version}"
-    }
+//    jacoco {
+//        toolVersion = "${jacoco_version}"
+//    }
 
-    build.dependsOn jacocoTestReport
+//    build.dependsOn jacocoTestReport
 }
 
 task wrapper(type: Wrapper) {
@@ -87,24 +88,24 @@ task wrapper(type: Wrapper) {
 
 def publishedProjects = subprojects.findAll { it.path != ':uapi.sample' }
 
-task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
-    description = 'Generates an aggregate report from all subprojects'
-    dependsOn(publishedProjects.test)
-
-    additionalSourceDirs = files(publishedProjects.sourceSets.main.allSource.srcDirs)
-    sourceDirectories = files(publishedProjects.sourceSets.main.allSource.srcDirs)
-    classDirectories = files(publishedProjects.sourceSets.main.output)
-    executionData = files(publishedProjects.jacocoTestReport.executionData)
-
-    reports {
-        html.enabled = true // human readable
-        xml.enabled = true // required by coveralls
-    }
-
-    doFirst {
-        executionData = files(executionData.findAll { it.exists() })
-    }
-}
+//task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
+//    description = 'Generates an aggregate report from all subprojects'
+//    dependsOn(publishedProjects.test)
+//
+//    additionalSourceDirs = files(publishedProjects.sourceSets.main.allSource.srcDirs)
+//    sourceDirectories = files(publishedProjects.sourceSets.main.allSource.srcDirs)
+//    classDirectories = files(publishedProjects.sourceSets.main.output)
+//    executionData = files(publishedProjects.jacocoTestReport.executionData)
+//
+//    reports {
+//        html.enabled = true // human readable
+//        xml.enabled = true // required by coveralls
+//    }
+//
+//    doFirst {
+//        executionData = files(executionData.findAll { it.exists() })
+//    }
+//}
 
 configurations {
     codacy
